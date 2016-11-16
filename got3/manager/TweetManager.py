@@ -36,6 +36,10 @@ class TweetManager:
 				for emoji in tweetPQ("img.Emoji.Emoji--forText").items():
 					emoji.html(emoji.attr("alt"))
 					
+				# Added: fix the URL problems
+				for external_link in tweetPQ("a.twitter-timeline-link").items():
+					external_link.html(external_link.attr("data-expanded-url"))
+					
 				usernameTweet = tweetPQ("span.username.js-action-profile-name b").text();
 				txt = re.sub(r"\s+", " ", tweetPQ("p.js-tweet-text").text().replace('# ', '#').replace('@ ', '@'));
 				retweets = int(tweetPQ("span.ProfileTweet-action--retweet span.ProfileTweet-actionCount").attr("data-tweet-stat-count").replace(",", ""));
