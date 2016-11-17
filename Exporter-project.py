@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys, getopt, got, datetime, codecs
+import sys, getopt, got, datetime, codecs, langid
 
 
 def main(keyword, start, end, max, filename):
@@ -22,12 +22,16 @@ def main(keyword, start, end, max, filename):
         print 'Searching...\n'
 
         def receiveBuffer(tweets):
+            counter = 0
             for t in tweets:
-                outputFile.write(('\n%s;%s;%d;%d;"%s";%s;%s;%s;"%s";%s' % (
-                    t.username, t.date.strftime("%Y-%m-%d %H:%M"), t.retweets, t.favorites, t.text, t.geo, t.mentions,
-                    t.hashtags, t.id, t.permalink)))
+                lang = langid.classify(t.rawtext)[0]
+                if (lang == 'en'):
+                    counter += 1
+                    outputFile.write(('\n%s;%s;%d;%d;"%s";%s;%s;%s;"%s";%s' % (
+                        t.username, t.date.strftime("%Y-%m-%d %H:%M"), t.retweets, t.favorites, t.text, t.geo, t.mentions,
+                        t.hashtags, t.id, t.permalink)))
             outputFile.flush();
-            print 'More %d saved on file...\n' % len(tweets)
+            print str(counter) + ' tweets saved on file...'
 
         got.manager.TweetManager.getTweets(tweetCriteria, receiveBuffer)
 
@@ -38,7 +42,7 @@ def main(keyword, start, end, max, filename):
         print 'Done. Output file generated.'
 
 
-main("#anger OR #happy OR #surprise", "2015-09-10", "2015-09-15", 10, "happy")
+main("#anger OR #happy OR #surprise", "2016-05-10", "2016-08-21", 60, "test")
 
 
 

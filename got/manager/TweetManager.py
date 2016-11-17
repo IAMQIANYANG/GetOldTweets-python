@@ -35,13 +35,16 @@ class TweetManager:
 				tweetPQ = PyQuery(tweetHTML)
 				tweet = models.Tweet()
 				
-				# Added: find all emojis <img> tags and inject them back to the tweet text
-				for emoji in tweetPQ("img.Emoji.Emoji--forText").items():
-					emoji.html(emoji.attr("alt"))
-				
 				# Added: fix the URL problems
 				for external_link in tweetPQ("a.twitter-timeline-link").items():
 					external_link.html(external_link.attr("data-expanded-url"))
+				
+				# Added: retrieve text without emoji for more accurate language detection
+				txt_raw = re.sub(r"\s+", " ", tweetPQ("p.js-tweet-text").text().replace('# ', '#').replace('@ ', '@'));
+				
+				# Added: find all emoji <img> tags and inject them back to the tweet text
+				for emoji in tweetPQ("img.Emoji.Emoji--forText").items():
+					emoji.html(emoji.attr("alt"))
 				
 				usernameTweet = tweetPQ("span.username.js-action-profile-name b").text();
 				txt = re.sub(r"\s+", " ", tweetPQ("p.js-tweet-text").text().replace('# ', '#').replace('@ ', '@'));
@@ -60,6 +63,7 @@ class TweetManager:
 				tweet.permalink = 'https://twitter.com' + permalink
 				tweet.username = usernameTweet
 				tweet.text = txt
+				tweet.rawtext = txt_raw
 				tweet.date = datetime.datetime.fromtimestamp(dateSec)
 				tweet.retweets = retweets
 				tweet.favorites = favorites
