@@ -55,4 +55,3 @@ def main(keyword, start, end, max_per_day, filename):
     print 'Done. Output file generated. A total of ' + str(total_count) + ' tweets have been crawled.'
 
 main("#anger OR #happy OR #surprise", "2016-06-20", "2016-06-25", 20, "happy")
-
