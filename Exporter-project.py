@@ -34,7 +34,7 @@ def main(keyword, start, end, max_per_day, filename):
                     t.username, t.date.strftime("%Y-%m-%d %H:%M"), t.retweets, t.favorites, t.text, t.geo, t.mentions,
                     t.hashtags, t.id, t.permalink)))
                 
-        outputFile.flush();
+        outputFile.flush()
         print ' - ' + str(counter) + ' tweets saved on file.\n'
         
     def daterange(start_date, end_date):
