@@ -54,4 +54,19 @@ def main(keyword, start, end, max_per_day, filename):
     outputFile.close()
     print 'Done. Output file generated. A total of ' + str(total_count) + ' tweets have been crawled.'
 
-main("#anger OR #happy OR #surprise", "2016-06-20", "2016-06-25", 20, "happy")
+
+#hashtag_list = ["happy", "happiness", "happily", "happier", "happiest", "feelinghappy", 'joy', 'joyful', 'joyfully', 'joyfulness', 'joyous', 'joyously', 'joyousness', "cheerful", "cheery", "jovial", "jolly", "jocular", "gleeful", "carefree", "delighted", "smiling", "grinning", "ingoodspirits", "inagoodmood", "lighthearted", "pleased", "satisfied", "gratified", "buoyant", "feelingsunny", "blithe", "beatific", "exhilarated", "blissful"]
+#hashtag_list = ['trust', 'trustable', 'trusty', 'trustability', 'trustful', 'trusting','trusties', 'trustier', 'trustiest', 'trusted', 'trustily', 'trustiness', "belief", "faith", "certainty", "assurance", "credence", "reliance"]
+#hashtag_list = ['fear', 'fearsome', 'fearful', 'fearfully', 'fearfulness', "panic", "agitation", "dismay", "givemethecreeps", "givesmethecreeps", "phobia", "bugbear", "nightmare", "neurosis", "scared", "scaredstiff", "scaredtodeath", "petrified", "alarmed", "panicky", "trembling", "quaking", "cowed", "daunted", "timid", "timorous", "fainthearted", "twitchy", "trepidatious", "inacoldsweat", "abundleofnerves","spooked", "creepy", "scary"]
+#hashtag_list = ['anticipated', 'anticipating', 'anticipatable', 'anticipator',"expectation", "expectance", "expectancy", "prospect", "lookingforwardto", "lookforwardto", "await", "awaiting","countingthedays", "lickingmylips", "cantwait", "can'twait", "cannotwait"]
+#hashtag_list = ['anger', 'angry', 'angered', 'angrily', 'angriness', 'angrier', 'angriest', "displeasure", "crossness", "irascibility", "illtempered", "slowburn", "irate", "mad","irked", "infuriated", "inatemper","choleric","upinarms", "inhighdudgeon", "foamingatthemouth", "doingaslowburn", "inalather", "fittobetied", "seeingred","bentoutofshape", "tickedoff", "teedoff", "pissedoff","badtempered", "acrimonious","pissed"]
+#hashtag_list = ['disgust', 'disgusting', 'disgusted', 'disgustedly', "sickening", "nauseating", "nauseatic", "repulsive", "turnmystomach", "gross", "pukeable", "discust", "discusting", "discusted"]
+#hashtag_list = ['sad', 'sadness', 'sadden', 'sadly', 'sadder', 'saddest', 'saddeningly', "unhappiness", "depression", "despondency","wretchedness", "gloom", "gloominess","unhappy", "dejected", "depressed", "downcast", "feelingdown", "despondent", "disconsolate", "wretched", "glum", "gloomy", "dismal", "forlorn", "crestfallen", "inconsolable", "feelingblue", "downinthemouth" "downatthemouth", "downinthedumps", "tragic", "heartbreaking"]
+hashtag_list = ['surprise', 'surprising', 'surprised', 'surpriser', 'surprisedly', 'astonished', 'astonish', 'astonishedly', 'astonisher','astonishment', 'astonishing', 'astonishingly', "shock", "boltfromtheblue", "bombshell", "eyeopener", "wakeupcall","shocker", "startled", "shocked", "takenaback", "stupefied", "dumbfounded", "dumbstruck", "bowledover", "flabbergasted", "astounding", "staggering", "eyeopening"]
+
+for i in xrange(len(hashtag_list)):
+    hashtag_list[i] = ("#" + hashtag_list[i])
+    
+hashtag_query = ' OR '.join(hashtag_list)
+
+main(hashtag_query, "2015-09-01", "2016-03-01", 10, "surprise")
